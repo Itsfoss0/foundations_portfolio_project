@@ -3,6 +3,7 @@ from functools import wraps
 from typing import Callable
 from MySQLdb import connect, cursors
 
+
 class UserAlreadyExists(Exception):
     """
     There already exists a user with the
@@ -39,7 +40,7 @@ def validate_user(function: Callable) -> Callable:
     @wraps(function)
     def wrapper(*args: list, **kwargs: dict) -> Callable:
         """The wrapper function"""
-        email = request.form.get("email")
+        email = request.json.get("email")
 
         database_object = connect(
             host="localhost",
@@ -51,7 +52,8 @@ def validate_user(function: Callable) -> Callable:
         cursor = database_object.cursor(cursorclass=cursors.DictCursor)
 
         try:
-            cursor.execute('SELECT COUNT(*) FROM `app_users` WHERE email=%s', (email,))
+            cursor.execute('SELECT COUNT(*) FROM `app_users` WHERE\
+                           email=%s', (email,))
             cursor_res = cursor.fetchall()
             existing_users = int(next(iter(cursor_res[0].values())))
 
@@ -62,7 +64,8 @@ def validate_user(function: Callable) -> Callable:
                 return function(*args, **kwargs)
             else:
                 error_message = f"A user with email {email} already exists"
-                return jsonify({"error": error_message, "status": "error"}), 400
+                return jsonify({"error": error_message,
+                               "status": "error"}), 400
 
         except UserAlreadyExists as e:
             error_message = str(e)
