@@ -3,7 +3,7 @@ from functools import wraps
 from typing import Callable
 from MySQLdb import connect, cursors
 
-from .exceptions import UserAlreadyExists, UserNotAuthorized
+from .exceptions import UserAlreadyExists
 
 
 def validate_user(function: Callable) -> Callable:

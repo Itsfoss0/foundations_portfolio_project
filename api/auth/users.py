@@ -7,11 +7,12 @@ related API endpoints
 """
 
 from bcrypt import gensalt, hashpw
-from flask import Flask, jsonify, request
-from flask_cors import CORS, cross_origin
+from flask import jsonify, request
+from flask_cors import cross_origin
 from flask_restful import Resource
 from .decorators import validate_user
 from .db.database import cursor_object, db_object
+
 
 class SignUpResource(Resource):
     """
