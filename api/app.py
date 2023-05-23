@@ -4,18 +4,14 @@
 An API for the project
 """
 
-
-from flask_restful import Api, Resource
-
-from auth.users import SignUpResource, Flask, CORS
-
-
+from flask import Flask
+from flask_cors import CORS
+from flask_restful import Api
+from auth.users import SignUpResource
 
 app = Flask(__name__)
 api = Api(app)
 CORS(app)
-
-
 
 api.add_resource(SignUpResource, "/signup")
 
