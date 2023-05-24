@@ -10,6 +10,7 @@ from bcrypt import gensalt, hashpw
 from flask import jsonify, request
 from flask_cors import cross_origin
 from flask_restful import Resource
+from jwt import encode
 from .decorators import validate_user
 from .db.database import cursor_object, db_object
 
@@ -40,3 +41,8 @@ class SignUpResource(Resource):
             error_message = str(e.__cause__)
             # print(error_message)
             return jsonify({"error": error_message}), 500
+
+class LoginResource(Resource):
+    """
+    Class to handle user login functioalities
+    """
