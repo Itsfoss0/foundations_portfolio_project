@@ -6,7 +6,7 @@ should we call them ad-hocks
 I have no idea
 """
 
-from .db.database import cursor_object, DB_NAME
+from .db.database import cursor_object
 
 
 def user_exists(email: str) -> bool:
@@ -25,9 +25,10 @@ def user_exists(email: str) -> bool:
 
     return (exists == 1)
 
+
 def get_user_id_from_email(email: str) -> int:
     """
-    A helper function to retrieve user's 
+    A helper function to retrieve user's
     id given their email
     Args:
         email (str): The email of the user
@@ -50,7 +51,8 @@ def get_all_user_tasks(user_id: int) -> tuple:
     Returns:
         A list of user's tasks (both done and undone)
     """
-    cursor_object.execute("SELECT title, description, due_date, done FROM   `tasks` WHERE `created_by`=%s",
+    cursor_object.execute("SELECT title, description,\
+        due_date, done FROM tasks WHERE created_by=%s",
                           (user_id,))
     tasks_list = cursor_object.fetchall()
     return tasks_list
