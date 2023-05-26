@@ -14,10 +14,10 @@ from flask_restful import Resource
 from jwt import decode, DecodeError
 
 from .decorators import login_required
-from .db.database import db_object, cursor_object
 from .config import JWT_SECRET_KEY
 from .exceptions import UserNotAuthorized
 from .utils import get_all_user_tasks, get_user_id_from_email
+
 
 class TaskResource(Resource):
     """
@@ -42,6 +42,7 @@ class TaskResource(Resource):
             user_email = decoded_tokken["email"]
             user_id = get_user_id_from_email(user_email)
             tasks = get_all_user_tasks(user_id)
-            return jsonify({"user": user_id, "email": user_email, "tasks": tasks})
+            return jsonify({"user": user_id, "email":
+                            user_email, "tasks": tasks})
         except (UserNotAuthorized, DecodeError):
             return jsonify({"error": "user not athorized"})
