@@ -24,3 +24,6 @@ CREATE TABLE `tasks` (
   created_by INT,
   FOREIGN KEY (created_by) REFERENCES app_users(id)
 );
+
+ALTER TABLE tasks
+ALTER COLUMN due_date SET DEFAULT DATE_ADD(CURRENT_DATE(), INTERVAL 1 DAY);

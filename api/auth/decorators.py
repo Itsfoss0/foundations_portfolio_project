@@ -8,13 +8,13 @@ and authorization in the application
 
 from flask import request, jsonify, make_response
 from functools import wraps
-from jwt import decode
+from jwt import decode, DecodeError
 from typing import Callable
 # from MySQLdb import connect, cursors
 
-from .exceptions import UserAlreadyExists, UserNotAuthorized
 from .config import JWT_SECRET_KEY
-from .db.database import cursor_object
+# from .exceptions import UserAlreadyExists, UserNotAuthorized
+from .utils import user_exists
 
 
 def validate_user(function: Callable) -> Callable:
@@ -34,24 +34,16 @@ def validate_user(function: Callable) -> Callable:
         email = request.json.get("email")
 
         try:
-            cursor_object.execute('SELECT COUNT(*) FROM `app_users` WHERE\
-                           email=%s', (email,))
-            cursor_res = cursor_object.fetchall()
-            existing_users = int(next(iter(cursor_res[0].values())))
+            if user_exists(email):
+                response = make_response(jsonify({
+                    "error": f"user with email {email} exists"
+                }))
+                response.status_code = 418
+                return response
 
-            # cursor_object.close()
-            # db_object.close()
-
-            if existing_users < 1:
-                return function(*args, **kwargs)
-            else:
-                error_message = f"A user with email {email} already exists"
-                return jsonify({"error": error_message,
-                               "status": "error"}), 400
-
-        except UserAlreadyExists as e:
-            error_message = str(e)
-            return jsonify({"error": error_message}), 400
+            return function(*args, **kwargs)
+        except Exception as e:
+            return jsonify({"error": str(e)})
 
     return wrapper
 
@@ -65,31 +57,31 @@ def login_required(function: Callable) -> Callable:
     @wraps(function)
     def wrapper(*args, **kwargs):
         """ The wrapper function"""
-        tokken = request.headers.get("Authorization")
-        if tokken:
+        if request.headers.get("Authorization"):
             try:
-                # get the tokken from the tokken header
-                # Authorization: Basic eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.djs
-                tokken = tokken.split(" ")[1]
-                decoded_tok = decode(
-                    jwt=tokken,
-                    key=JWT_SECRET_KEY,
-                    algorithms="HS256")
-                user_email = decoded_tok.get("email")
-                cursor_object.execute("SELECT COUNT(*) FROM `app_users` \
-                                      WHERE `email` = %s", (user_email))
-                cursor_res = cursor_object.fetchone()
-                # is there a user in the database with the email?
-                email_found = int(next(iter(cursor_res[0].values())))
-                if email_found == 1:
-                    return function(*args, **kwargs)
+                tokken = request.headers.get("Authorization").split(" ")[1]
+                if tokken:
+                    # decode the tokken and retrieve the email
+                    decoded_tokken = decode(
+                        jwt=tokken,
+                        key=JWT_SECRET_KEY,
+                        algorithms="HS256"
+                    )
+                    # return jsonify(decoded_tokken)
+                    email = decoded_tokken['email']
+                    if user_exists(email):
+                        return function(*args, **kwargs)
 
-            except Exception:
-                raise UserNotAuthorized("User not authorized")
+                    return jsonify({"error": "Session timed out.\
+                                   Login and try again"})
+            except DecodeError:
+                error_mes = make_response(jsonify({"error":
+                                          "Login and try again."}))
+                error_mes.status_code = 401
+                return error_mes
+            return jsonify({"error":
+                           "Must be logged in to perform this action"})
 
-        erro_mess = make_response(jsonify({"error": "You are not\
-                                  authorized to perfom this action"}))
-        erro_mess.status_code = 401
-        return erro_mess
+        return jsonify({"error": "Might wanna login before doing that!"})
 
     return wrapper
