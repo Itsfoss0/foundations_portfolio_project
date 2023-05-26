@@ -51,8 +51,8 @@ def get_all_user_tasks(user_id: int) -> tuple:
     Returns:
         A list of user's tasks (both done and undone)
     """
-    cursor_object.execute("SELECT title, description,\
-        due_date, done FROM tasks WHERE created_by=%s",
+    cursor_object.execute("SELECT id, title, description,\
+        due_date, updated_at, done FROM tasks WHERE created_by=%s",
                           (user_id,))
     tasks_list = cursor_object.fetchall()
     return tasks_list
