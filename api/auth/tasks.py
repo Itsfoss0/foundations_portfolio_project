@@ -87,8 +87,8 @@ class TaskResource(Resource):
         if request.json.get("task_id") is not None:
             try:
                 task_id = request.json.get("task_id")
-                user_tokken = request.headers.get("Authorization").split(" ")[1]
-                decoded_tokken = decode_user_tokken(user_tokken)
+                user_token = request.headers.get("Authorization").split(" ")[1]
+                decoded_tokken = decode_user_tokken(user_token)
                 user_email = decoded_tokken['email']
                 user_id = get_user_id_from_email(user_email)
                 task_deleted_message = delete_task(task_id, user_id)
