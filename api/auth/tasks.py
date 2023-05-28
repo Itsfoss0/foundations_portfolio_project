@@ -15,7 +15,7 @@ from flask_restful import Resource
 from .decorators import login_required
 from .exceptions import UserNotAuthorized
 from .utils import get_all_user_tasks, get_user_id_from_email,\
-    add_more_tasks, decode_user_tokken
+    add_more_tasks, decode_user_tokken, delete_task
 
 
 class TaskResource(Resource):
@@ -76,3 +76,34 @@ class TaskResource(Resource):
             }))
             error_resp.status_code = 500
             return error_resp
+
+    @login_required
+    @cross_origin()
+    def delete(self):
+        """
+        Delete a task from the database
+        For whatever reason
+        """
+        if request.json.get("task_id") is not None:
+            try:
+                task_id = request.json.get("task_id")
+                user_tokken = request.headers.get("Authorization").split(" ")[1]
+                decoded_tokken = decode_user_tokken(user_tokken)
+                user_email = decoded_tokken['email']
+                user_id = get_user_id_from_email(user_email)
+                task_deleted_message = delete_task(task_id, user_id)
+                return jsonify({
+                    "status": "success",
+                    "message": task_deleted_message
+                })
+            except Exception as e:
+                error_resp = make_response(jsonify({"error": str(e)}))
+                error_resp.status_code = 500
+                return (error_resp)
+
+        error_resp = make_response(jsonify({
+            "error": "Bad Request",
+            "message": "Which task to delete?"
+        }))
+        error_resp.status_code = 400
+        return error_resp
