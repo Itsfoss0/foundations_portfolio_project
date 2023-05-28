@@ -56,7 +56,7 @@ def get_all_user_tasks(user_id: int) -> tuple:
         """
         cursor_object.execute("SELECT id, title, description,\
             due_date, updated_at, done FROM tasks WHERE created_by=%s",
-                            (user_id,))
+                              (user_id,))
         tasks_list = cursor_object.fetchall()
         return tasks_list
     except Exception as e:
@@ -109,6 +109,7 @@ def add_more_tasks(
     except Exception as e:
         return f"could not add {task_title}, {str(e)}"
 
+
 def get_one_task(task_id: int):
     """
     Get a task from the database
@@ -119,7 +120,6 @@ def get_one_task(task_id: int):
     """
     cursor_object.execute("SELECT * FROM tasks WHERE id = %s", (task_id,))
     return cursor_object.fetchall()
-    
 
 
 def delete_task(task_id: int, owner_id: int) -> str:
@@ -151,4 +151,3 @@ def delete_task(task_id: int, owner_id: int) -> str:
         # is not the owner, or any other exception
         print(e)
         return f"Sorry, could not delete task {task_id}"
-
