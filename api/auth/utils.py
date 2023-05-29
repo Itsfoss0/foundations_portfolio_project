@@ -122,6 +122,35 @@ def get_one_task(task_id: int):
     return cursor_object.fetchall()
 
 
+def update_task_properties(task_id: int, new_props: dict, allowed_props: list):
+    """
+    Update the properties of the task in the db
+    Args:
+        task_id (int): id of the task to update
+        new_props (dict): A dictionary of the new properties
+            With the dictionary keys as the table field
+            And values as the values to update
+        allowed_props (list): A list of fields in the database
+            table, to identify which properties to update
+    Returns:
+        Returns a string. Was the operation a success?
+    """
+    try:
+        values = []
+        query = "UPDATE tasks SET "
+        for key, value in new_props.items():
+            if key in allowed_props:
+                query += f"{key} = %s, "
+                values.append(value)
+        query = query[:-2] + " WHERE id = %s"
+        values.append(task_id)
+        cursor_object.execute(query, tuple(values))
+        db_object.commit()
+        return f"Updated task {task_id}"
+    except Exception as e:
+        return f"error: {str(e)}"
+
+
 def delete_task(task_id: int, owner_id: int) -> str:
     """
     utility function to delete a task
