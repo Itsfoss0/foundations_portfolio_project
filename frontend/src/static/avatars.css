@@ -1,0 +1,17 @@
+.avatar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    background-color: #1c87c9;
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%
+}
+.avatar:hover{
+    cursor: pointer;
+}

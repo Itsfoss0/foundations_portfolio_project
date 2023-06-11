@@ -1,0 +1,32 @@
+.signout-popup {
+    display: none;
+    position: absolute;
+    top: 70px; /* Adjust the top position as needed */
+    right: 45vh;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+  }
+
+
+.signout-popup h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.signout-popup p {
+    margin-bottom: 20px;
+}
+  
+.signout-popup button[type="submit"] {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
