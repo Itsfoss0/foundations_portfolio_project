@@ -1,0 +1,42 @@
+.popup-form {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 9px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    display: none;
+  }
+  
+  .popup-form h3 {
+    margin-top: 0;
+  }
+  
+  .popup-form label {
+    display: block;
+    margin-bottom: 5px;
+    border-radius: 5px;
+  }
+  
+  .popup-form input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .popup-form button {
+    margin-top: 10px;
+  }
+  
+  .cancel-button {
+    /* margin-left: 5px; */
+    border-radius: 5px;
+    background-color: rgba(216, 27, 27, 0.925);
+  }
+  /* .cancel-button:hover{
+    margin-top: 2%;
+    margin-right: 10px;
+  } */

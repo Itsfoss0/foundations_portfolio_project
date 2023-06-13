@@ -1,0 +1,241 @@
+html,
+body {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+body,
+div,
+h1,
+form,
+input,
+p {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+  color: #666;
+}
+h1 {
+  padding: 10px 0;
+  font-size: 32px;
+  font-weight: 300;
+  text-align: center;
+}
+
+p {
+  font-size: 12px;
+}
+hr {
+  color: #a9a9a9;
+  opacity: 0.3;
+}
+.main-block {
+  margin-top: 2%;
+  max-width: 340px;
+  min-height: 460px;
+  padding: 10px 0;
+  margin: auto;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.31);
+  background: #ebebeb;
+}
+.main-block:hover{
+  border-radius: 7px;
+  box-shadow: 10px 8px 15px rgba(126, 94, 94, 0.31);
+  /* transform: translateY(-20px) */
+}
+form {
+  margin: 0 30px;
+}
+.account-type,
+.gender {
+  margin: 15px 0;
+}
+input[type="radio"] {
+  display: none;
+}
+label#icon {
+  margin: 0;
+  border-radius: 5px 0 0 5px;
+}
+label.radio {
+  position: relative;
+  display: inline-block;
+  padding-top: 4px;
+  margin-right: 20px;
+  text-indent: 30px;
+  overflow: visible;
+  cursor: pointer;
+}
+label.radio:before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1c87c9;
+}
+label.radio:after {
+  content: "";
+  position: absolute;
+  width: 9px;
+  height: 4px;
+  top: 8px;
+  left: 4px;
+  border: 3px solid #fff;
+  border-top: none;
+  border-right: none;
+  transform: rotate(-45deg);
+  opacity: 0;
+}
+input[type="radio"]:checked + label:after {
+  opacity: 1;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: calc(100% - 57px);
+  height: 36px;
+  margin: 13px 0 0 -5px;
+  padding-left: 10px;
+  border-radius: 0 5px 5px 0;
+  border: solid 1px #cbc9c9;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.09);
+  background: #fff;
+}
+input[type="password"] {
+  margin-bottom: 15px;
+}
+input[type="date"] {
+  width: calc(100% - 57px);
+  height: 36px;
+  margin: 13px 0 0 -5px;
+  padding-left: 10px;
+  border-radius: 5px;
+  border: solid 1px #cbc9c9;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.09);
+  background: #fff;
+}
+
+#icon {
+  display: inline-block;
+  padding: 9.3px 15px;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.09);
+  background: #1c87c9;
+  color: #fff;
+  text-align: center;
+}
+.btn-block {
+  margin-top: 10px;
+  text-align: center;
+}
+button {
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: none;
+  background: #1c87c9;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+button:hover {
+  background: #26a9e0;
+}
+
+.logo-container {
+  text-align: center;
+  margin-top: 2%;
+}
+
+.logo-container img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+}
+
+#task-section {
+  position: relative;
+  display: none;
+  width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 5px;
+  border: solid 1px #ccc;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin: 2%;
+}
+
+#task-section h2 {
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.task-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+}
+#task-list {
+  list-style-type: disc;
+  padding: 0;
+}
+
+/* #task-list li {
+  margin-bottom: 10px;
+} */
+
+#task-list  span {
+  font-weight: 400;
+  display: block;
+  font-size: 14px;
+}
+
+#task-list .task-title {
+  display: block;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #333
+}
+
+#task-list .task-description {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #999;
+}
+
+#task-list .task-date {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #999;
+}
+font{
+  display: inline;
+  margin-left: 0;
+}
+
+.task-actions {
+  margin-top: 2%;
+  display: flex;
+  align-items: center;
+}
+
+.task-actions .icon {
+  margin-right: 10px; 
+}
+
+.check-icon {
+  color: green; 
+}

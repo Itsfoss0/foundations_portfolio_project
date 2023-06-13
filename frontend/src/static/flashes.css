@@ -1,0 +1,34 @@
+#flash-messages {
+    position: absolute; 
+    text-align: center;
+    margin-top: 2%;
+    margin-bottom: auto;
+}
+
+#flash-messages .success {
+    width: 130%;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background: #13a73f;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+#flash-messages .error {
+    background-color: #FF6347;
+    color: white;
+    height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}

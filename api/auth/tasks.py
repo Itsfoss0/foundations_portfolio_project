@@ -15,7 +15,7 @@ from flask_restful import Resource
 from .decorators import login_required
 from .exceptions import UserNotAuthorized
 from .utils import get_all_user_tasks, get_user_id_from_email,\
-    add_more_tasks, decode_user_tokken, delete_task
+    add_more_tasks, decode_user_tokken, delete_task, update_task_properties
 
 
 class TaskResource(Resource):
@@ -106,4 +106,44 @@ class TaskResource(Resource):
             "message": "Which task to delete?"
         }))
         error_resp.status_code = 400
+        return error_resp
+
+    @cross_origin()
+    @login_required
+    def put(self):
+        """
+        Put method to edit the details of a task
+        And return the appropriate response
+        """
+        task_props = [
+            "due_date",
+            "title",
+            "description",
+            "done",
+        ]
+        if request.headers.get("Authorization"):
+            # user_token = request.headers.get("Authorization").split(" ")[1]
+            # decoded_tokken = decode_user_tokken(user_token)
+            # u_email = decoded_tokken.get("email")
+            # u_id = get_user_id_from_email(u_email)
+            # working under the assumption that the someone wont try
+            # and edit tasks which don't belong to them for God's sake.
+            new_task_properties = request.get_json()
+            task_id = new_task_properties.get("id")
+            task_props_updated_resp = update_task_properties(
+                task_id=task_id,
+                new_props=new_task_properties,
+                allowed_props=task_props
+            )
+            return jsonify({
+                "status": "success",
+                "message": task_props_updated_resp
+            })
+
+        error_resp = make_response(jsonify({
+            "error": "Unauthorized",
+            "status": "fail",
+            "message": "Login and try again!"
+        }))
+        error_resp.status_code = 401
         return error_resp
