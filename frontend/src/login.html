@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<!-- credits 
+https://www.w3docs.com/learn-html/html-form-templates.html
+-->
+
+<head>
+  <title>Login | Todoist</title>
+  <!-- <link rel="icon" href="./images/favicon-16x16.png" type="image/x-icon"> -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+    integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+  <link rel="stylesheet" href="static/styles.css">
+  <link rel="stylesheet" href="static/flashes.css">
+  <link rel="stylesheet" href="./static/avatars.css">
+  <link rel="stylesheet" href="./static/signout.css">
+  <link rel="stylesheet" href="./static/popup-form.css">
+  <link rel="stylesheet" href="./static/index.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="./js/login.js"></script>
+</head>
+
+<body>
+  <!-- flash messages incase of usuccessfull login -->
+  <div id="flash-messages"></div>
+  <div class="main-block">
+    <div class="logo-container">
+        <img src="./images/logo.png" alt="Logo" srcset="">
+    </div>
+    <h1>Login</h1>
+    <form action="" method="POST" id="login-form">
+      <hr>
+      <label id="icon" for="email"><i class="fas fa-envelope"></i></label>
+      <input type="text" name="email" id="email" placeholder="Email" required />
+      <label id="icon" for="password"><i class="fas fa-lock"></i></label>
+      <input type="password" name="password" id="password" placeholder="Password" required />
+      <hr>
+      <div class="btn-block">
+        <button type="submit" id="submit-btn">Login</button>
+      </div>
+      Dont have an account? <a href="./signup.html">Create One</a>
+    </form>
+  </div>
+
+  <section id="task-section">
+    <div class="avatar"></div>
+    <h2 id="welcome">Welcome</h2>
+    <ul id="task-list">
+
+    </ul>
+  </section>
+
+  <section id="signout">
+    <div class="signout-popup" id="signout-popup">
+      <form id="signout-form">
+        <h3>Sign Out</h3>
+        <p>Are you sure you want to sign out?</p>
+        <button type="submit">Sign Out</button>
+      </form>
+    </div>
+    
+  </section>
+  <div id="edit-task-popup" class="popup-form">
+    <form id="edit-task-form">
+      <h3>Edit Task</h3>
+      <input type="hidden" id="edit-task-id" />
+      <label for="edit-task-title">Title:</label>
+      <input type="text" id="edit-task-title" />
+      <label for="edit-task-description">Description:</label>
+      <input type="text" id="edit-task-description" />
+      <label for="edit-task-due-date">Due Date:</label>
+      <input type="date" id="edit-task-due-date" />
+      <button id="submit-button" type="submit">Save</button>
+      <button type="button" id="cancel-button">Cancel</button>
+    </form>
+  </div>
+<footer>
+  &copy; Todoist 2023
+</footer>
+</body>
+
+</html>
